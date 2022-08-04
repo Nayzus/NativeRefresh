@@ -31,25 +31,27 @@ public struct RefreshableScrollView<Content: View>: View {
                     .frame(height: 100, alignment: .center)
             }
             ScrollView() {
-                GeometryReader { proxy in
-                    Color.clear.preference(key: OffsetPreferenceKey.self,
-                                           value: proxy.frame(in: .named("ScrollViewOrigin"))
-                        .origin)
-                }
+                Group {
                 
-                if #available(iOS 15, *) {
-                    VStack(spacing: 0) {
-                        Rectangle()
-                            .frame(height: dinamicHeight, alignment: .center)
-                            .foregroundColor(.clear)
-                        content
+                    if #available(iOS 15, *) {
+                        VStack(spacing: 0) {
+                            Rectangle()
+                                .frame(height: dinamicHeight, alignment: .center)
+                                .foregroundColor(.clear)
+                            content
+                        }
                     }
-                }
-                else {
-                    content
-                        .offset(x: 0, y: dinamicHeight)
-                }
-                
+                    else {
+                        content
+                            .offset(x: 0, y: dinamicHeight)
+                    }
+                }.background(
+                    GeometryReader { proxy in
+                        Color.clear.preference(key: OffsetPreferenceKey.self,
+                                               value: proxy.frame(in: .named("ScrollViewOrigin"))
+                            .origin)
+                    }
+                )
             }
             .coordinateSpace(name: "ScrollViewOrigin")
             .onPreferenceChange(OffsetPreferenceKey.self, perform: { offset in
