@@ -22,7 +22,7 @@ dependencies: [
 
 ## Quick Start
 
-For start need import `NativeRefresh`
+To start, you need to import the package `import NativeRefresh`
 
 ```swift
             RefreshableScrollView {
@@ -36,7 +36,7 @@ For start need import `NativeRefresh`
 
 ## Aviable API
 
-Base Api for refresh action:
+Base function for working with refresh action:
 
 ```swift
             RefreshableScrollView {}
@@ -45,7 +45,7 @@ Base Api for refresh action:
                 }
 ```
 
-For customization style aviable protocol  `RefreshControlStyle`:
+To customize the Refresh Control stylet, use the protocol  `RefreshControlStyle`:
 
 ```swift
             RefreshableScrollView {}
