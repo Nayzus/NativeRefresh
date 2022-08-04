@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 14.3, *)
 public struct CircularRefreshControlView: View {
     @ObservedObject var configuration: RefreshControlStyleConfiguration
     @State private var opacity: [Double] = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -45,7 +44,7 @@ public struct CircularRefreshControlView: View {
             .animation(.timingCurve(0.2, 0.2, 0.1, 0, duration: 0.5), value: rotationEnd)
             if let hintText = hintText {
                 Text(LocalizedStringKey(hintText))
-                    .font(.caption2)
+                    .font(.system(size: 14, weight: .semibold))
                     .fontWeight(.semibold)
                     .foregroundColor(hintColor ?? .gray)
                     .opacity(configuration.pullProgress / 100)

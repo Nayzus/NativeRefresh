@@ -1,20 +1,19 @@
 import SwiftUI
 import Combine
 
-@available(iOS 14.3, *)
+
 public protocol RefreshControlStyle {
     typealias Configuration = RefreshControlStyleConfiguration
     @ViewBuilder func makeBody(configuration: Self.Configuration) -> AnyView
 }
 
-@available(iOS 14.3, *)
+
 public struct CircularRefreshControlStyle: RefreshControlStyle {
     public func makeBody(configuration: Configuration) -> AnyView {
         AnyView(CircularRefreshControlView(configuration: configuration, color: .gray))
     }
 }
 
-@available(iOS 14.3, *)
 public class RefreshControlStyleConfiguration: ObservableObject {
     typealias EndRefreshAction = () async -> ()
     typealias RefreshAction = () async -> ()

@@ -1,7 +1,7 @@
 import SwiftUI
 import Combine
 
-@available(iOS 14.3, *)
+
 public struct RefreshableScrollView<Content: View>: View {
     @ObservedObject private var configuration: RefreshControlStyleConfiguration = .init()
     @State private var currentOffset: CGFloat = 0.0
@@ -72,14 +72,14 @@ public struct RefreshableScrollView<Content: View>: View {
     }
 }
 
-@available(iOS 14.3, *)
+
 private extension RefreshableScrollView {
     struct Configuration {
         var onOffsetChange: ((CGFloat) -> Void)? = nil
     }
 }
 
-@available(iOS 14.3, *)
+
 private struct OffsetPreferenceKey: PreferenceKey {
     static var defaultValue: CGPoint = .zero
     static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) { }
