@@ -1,7 +1,9 @@
+
+<img align="left" src="https://github.com/Nayzus/NativeRefresh/blob/main/example.gif" alt="drawing" width="280" style="padding-right: 32px"/>
+
 # NativeRefresh
 Native SwiftUI Pool to Refresh
 
-<img align="left" src="https://github.com/Nayzus/NativeRefresh/blob/main/example.gif" alt="drawing" width="320" style="padding-right: 32px"/>
 
 ## Installation
 
