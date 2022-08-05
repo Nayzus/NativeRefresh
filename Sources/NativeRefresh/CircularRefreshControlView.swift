@@ -42,16 +42,13 @@ public struct CircularRefreshControlView: View {
             .rotationEffect(Angle(degrees: rotationEnd ? 320 : 0), anchor: .center)
             .animation(.timingCurve(0.3, 0.2, 0.1, 1, duration: 1.5), value: configuration.isRefresh)
             .animation(.timingCurve(0.2, 0.2, 0.1, 0, duration: 0.5), value: rotationEnd)
-            Group {
-                if let hintText = hintText {
-                    Text(LocalizedStringKey(hintText))
-                        .font(.system(size: 14, weight: .semibold))
-                        .fontWeight(.semibold)
-                        .foregroundColor(hintColor ?? .gray)
-                        .opacity(configuration.pullProgress / 100)
-                }
-            }
-            .frame( height: 25, alignment: .center )
+        
+            Text(LocalizedStringKey(hintText ?? ""))
+                .font(.system(size: 14, weight: .semibold))
+                .fontWeight(.semibold)
+                .foregroundColor(hintColor ?? .gray)
+                .opacity(configuration.pullProgress / 100)
+        
         }
         .scaleEffect(scalingEnd ? 0 : 1)
         .opacity(scalingEnd ? 0 : 1)
