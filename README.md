@@ -18,7 +18,7 @@ Once you have your Swift package set up, adding as a dependency is as easy as ad
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ivanvorobei/SPAlert", .upToNextMajor(from: "4.2.0"))
+    .package(url: "https://github.com/Nayzus/NativeRefresh", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
