@@ -5,7 +5,7 @@ import Combine
 public struct RefreshableScrollView<Content: View>: View {
     @ObservedObject private var configuration: RefreshControlStyleConfiguration = .init()
     @State private var currentOffset: CGFloat = 0.0
-    
+    @Binding var disabledScroll: Bool = false
     let content: Content
     var refreshControlStyle: RefreshControlStyle
     
@@ -53,6 +53,7 @@ public struct RefreshableScrollView<Content: View>: View {
                     }
                 )
             }
+            .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
             .coordinateSpace(name: "ScrollViewOrigin")
             .onPreferenceChange(OffsetPreferenceKey.self, perform: { offset in
                 self.currentOffset = offset.y
@@ -72,6 +73,13 @@ public struct RefreshableScrollView<Content: View>: View {
         configuration.refreshAction = action
         return self
     }
+    
+    public func disabledScroll(_ value: Binding<Bool>) -> Self {
+        var this = self
+        this._disabledScroll = value
+        return this
+    }
+    
 }
 
 
