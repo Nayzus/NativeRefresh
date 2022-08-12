@@ -5,7 +5,7 @@ import Combine
 public struct RefreshableScrollView<Content: View>: View {
     @ObservedObject private var configuration: RefreshControlStyleConfiguration = .init()
     @State private var currentOffset: CGFloat = 0.0
-    @Binding var disabledScroll: Bool = false
+    @Binding var disabledScroll: Bool
     let content: Content
     var refreshControlStyle: RefreshControlStyle
     
@@ -21,7 +21,9 @@ public struct RefreshableScrollView<Content: View>: View {
     public init(offsetChangeAction: ((CGFloat) async -> ())? = nil, @ViewBuilder content: () -> Content)  {
         self.content = content()
         self.refreshControlStyle = CircularRefreshControlStyle()
+        self._disabledScroll = .constant(false)
         self.configuration.offsetChangeAction = offsetChangeAction
+      
     }
     
     public var body: some View {

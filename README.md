@@ -54,3 +54,9 @@ To customize the Refresh Control stylet, use the protocol  `RefreshControlStyle`
                 .refreshControlStyle(CircularRefreshControlStyle())
 ```
 
+Disable `ScrollView`:
+
+```swift
+            RefreshableScrollView {}
+                .disableScroll($scrollIsDisabled)
+```
