@@ -1,9 +1,10 @@
 
-<img align="left" src="https://github.com/Nayzus/NativeRefresh/blob/main/example.gif" alt="drawing" width="280" style="padding-right: 32px"/>
 
 # NativeRefresh
 Native SwiftUI Pool to Refresh
 
+
+<img src="https://github.com/Nayzus/NativeRefresh/blob/main/example.gif" alt="drawing" width="280" style="padding-right: 32px"/>
 
 ## Installation
 
@@ -18,7 +19,7 @@ Once you have your Swift package set up, adding as a dependency is as easy as ad
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/ivanvorobei/SPAlert", .upToNextMajor(from: "4.2.0"))
+    .package(url: "https://github.com/Nayzus/NativeRefresh", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
