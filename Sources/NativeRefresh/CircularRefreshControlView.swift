@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-public struct CircularRefreshControlView: View {
+public struct CircularRefreshControlView: View, Equatable {
+    public static func == (lhs: CircularRefreshControlView, rhs: CircularRefreshControlView) -> Bool {
+        return lhs.configuration === rhs.configuration
+    }
+    
     @ObservedObject var configuration: RefreshControlStyleConfiguration
     @State private var opacity: [Double] = [0, 0, 0, 0, 0, 0, 0, 0]
     @State private var rotationEnd: Bool = false

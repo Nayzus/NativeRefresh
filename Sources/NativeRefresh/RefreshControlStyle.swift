@@ -10,7 +10,7 @@ public protocol RefreshControlStyle {
 
 public struct CircularRefreshControlStyle: RefreshControlStyle {
     public func makeBody(configuration: Configuration) -> AnyView {
-        AnyView(CircularRefreshControlView(configuration: configuration, color: .gray))
+        AnyView(EquatableView(content: CircularRefreshControlView(configuration: configuration, color: .gray)))
     }
 }
 
