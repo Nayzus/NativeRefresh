@@ -5,7 +5,7 @@ import Combine
 public struct RefreshableScrollView<Content: View>: View {
     @PersistentObject private var configuration: RefreshControlStyleConfiguration = .init()
     
-    @State private var currentOffset: CGFloat = 0.0 
+    @State private var currentOffset: CGFloat = 0.0
     @Binding var disabledScroll: Bool
     let content: Content
     var refreshControlStyle: RefreshControlStyle
@@ -44,6 +44,7 @@ public struct RefreshableScrollView<Content: View>: View {
                             Rectangle()
                                 .frame(height: dinamicHeight, alignment: .center)
                                 .foregroundColor(.clear)
+                            
                             content
                         }
                     }
@@ -58,6 +59,7 @@ public struct RefreshableScrollView<Content: View>: View {
                             .origin)
                     }
                 )
+                .animation(.linear, value: dinamicHeight)
             }
             .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
             .coordinateSpace(name: "ScrollViewOrigin")
