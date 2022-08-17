@@ -18,17 +18,9 @@ public class RefreshControlStyleConfiguration: ObservableObject {
     typealias EndRefreshAction = () async -> ()
     typealias RefreshAction = () async -> ()
     typealias OffsetChangeAction = (CGFloat) async -> ()
-    @Published var isRefresh: Bool = false {
-        didSet {
-            print("isRefresh \(isRefresh)")
-        }
-    }
+    @Published var isRefresh: Bool = false
     
-    @Published var pullProgress: Double = 0 {
-        didSet {
-            print("pullProgress \(pullProgress)")
-        }
-    }
+    @Published var pullProgress: Double = 0
     
     let offsetTrigger: Double = 100.0
     var refreshAction: RefreshAction? = nil
@@ -37,10 +29,7 @@ public class RefreshControlStyleConfiguration: ObservableObject {
     
     @MainActor
     func updateProgress(_ offset: CGPoint) {
-        print("updateProgress")
-        print(isRefresh)
-        print(pullProgress)
-        print("--------------")
+
         Task {
             await offsetChangeAction?(offset.y)
         }

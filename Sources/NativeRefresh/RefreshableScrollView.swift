@@ -15,15 +15,14 @@ public struct RefreshableScrollView<Content: View>: View {
     var refreshControlStyle: RefreshControlStyle
     
     var dinamicHeight: Double {
-        
-        print("dinamicHeight configuration.isRefresh \(configuration.isRefresh)")
+
         if configuration.isRefresh {
             if currentOffset < 100 {
-                print("dinamicHeight 100")
+
                 return 100
             }
         }
-        print("dinamicHeight \(currentOffset > 0 ? currentOffset : 0)")
+
         return currentOffset > 0 ? currentOffset : 0
     }
     
