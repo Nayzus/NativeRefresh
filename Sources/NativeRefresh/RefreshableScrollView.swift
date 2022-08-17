@@ -4,7 +4,11 @@ import Combine
 
 public struct RefreshableScrollView<Content: View>: View {
     @ObservedObject private var configuration: RefreshControlStyleConfiguration = .init()
-    @State private var currentOffset: CGFloat = 0.0
+    @State private var currentOffset: CGFloat = 0.0 {
+        willSet {
+            print(currentOffset)
+        }
+    }
     @Binding var disabledScroll: Bool
     let content: Content
     var refreshControlStyle: RefreshControlStyle
@@ -12,9 +16,12 @@ public struct RefreshableScrollView<Content: View>: View {
     var dinamicHeight: Double {
         if configuration.isRefresh {
             if currentOffset < 100 {
+                
+                print(100)
                 return 100
             }
         }
+        print(currentOffset > 0 ? currentOffset : 0)
         return currentOffset > 0 ? currentOffset : 0
     }
     

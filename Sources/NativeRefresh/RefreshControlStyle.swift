@@ -28,6 +28,9 @@ public class RefreshControlStyleConfiguration: ObservableObject {
     
     @MainActor
     func updateProgress(_ offset: CGPoint) {
+        
+        print(isRefresh)
+        print(pullProgress)
         Task {
             await offsetChangeAction?(offset.y)
         }

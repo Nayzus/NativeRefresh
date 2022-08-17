@@ -39,7 +39,7 @@ public struct CircularRefreshControlView: View, Equatable {
                     }
                 }
             }
-            .id(id)
+            //.id(id)
             .frame(width: 29, height: 29, alignment: .center)
             .drawingGroup()
             .rotationEffect(Angle(degrees: configuration.isRefresh ? 180 : 0), anchor: .center)
