@@ -5,11 +5,7 @@ import Combine
 public struct RefreshableScrollView<Content: View>: View {
     @PersistentObject private var configuration: RefreshControlStyleConfiguration = .init()
     
-    @State private var currentOffset: CGFloat = 0.0 {
-        willSet {
-            print(currentOffset)
-        }
-    }
+    @State private var currentOffset: CGFloat = 0.0 
     @Binding var disabledScroll: Bool
     let content: Content
     var refreshControlStyle: RefreshControlStyle

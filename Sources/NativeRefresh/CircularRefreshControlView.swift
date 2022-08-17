@@ -148,8 +148,10 @@ public struct CircularRefreshControlView: View, Equatable {
             try? await Task.sleep(nanoseconds: 75_000_000)
             currentKey += 1
         } while configuration.isRefresh
-        rotationEnd = false
-        scalingEnd = false
-        id = UUID().uuidString
+        withAnimation {
+            rotationEnd = false
+            scalingEnd = false
+            id = UUID().uuidString
+        }
     }
 }
