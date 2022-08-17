@@ -44,18 +44,18 @@ public struct RefreshableScrollView<Content: View>: View {
             ScrollView() {
                 Group {
                 
-//                    if #available(iOS 15, *) {
-//                        VStack(spacing: 0) {
-//                            Rectangle()
-//                                .frame(height: dinamicHeight, alignment: .center)
-//                                .foregroundColor(.clear)
-//                            content
-//                        }
-//                    }
-//                    else {
+                    if #available(iOS 15, *) {
+                        VStack(spacing: 0) {
+                            Rectangle()
+                                .frame(height: dinamicHeight, alignment: .center)
+                                .foregroundColor(.clear)
+                            content
+                        }
+                    }
+                    else {
                         content
                             .offset(x: 0, y: dinamicHeight)
-//                    }
+                    }
                 }.background(
                     GeometryReader { proxy in
                         Color.clear.preference(key: OffsetPreferenceKey.self,
