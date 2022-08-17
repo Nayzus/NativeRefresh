@@ -59,7 +59,7 @@ public struct RefreshableScrollView<Content: View>: View {
                             .origin)
                     }
                 )
-                .animation(.linear, value: dinamicHeight)
+                .animation(.spring(), value: dinamicHeight)
             }
             .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
             .coordinateSpace(name: "ScrollViewOrigin")
