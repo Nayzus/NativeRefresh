@@ -31,18 +31,24 @@ public class RefreshControlStyleConfiguration: ObservableObject {
     
     @MainActor
     func updateProgress(_ offset: CGPoint) {
-
+        
         Task {
             await offsetChangeAction?(offset.y)
         }
         if !isRefresh {
+            self.recharged = false
             if offset.y < offsetTrigger && offset.y >= 0 {
                 self.pullProgress = (offset.y / offsetTrigger) * 100
-            } else if offset.y >= offsetTrigger  {
+            } else if offset.y >= offsetTrigger && recharged == true  {
                 self.pullProgress = 100.0
                 Task {
                     await self.startRefreshAction()
                 }
+            }
+        }
+        else {
+            if offset.y == 0 {
+                self.recharged = true
             }
         }
     }
