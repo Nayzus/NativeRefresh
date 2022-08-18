@@ -36,7 +36,7 @@ public class RefreshControlStyleConfiguration: ObservableObject {
             await offsetChangeAction?(offset.y)
         }
         if !isRefresh {
-            if offset.y == 0 {
+            if offset.y <= 0 {
                 self.recharged = true
             }
             
