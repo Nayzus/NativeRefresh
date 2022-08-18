@@ -22,7 +22,7 @@ public class RefreshControlStyleConfiguration: ObservableObject {
     
     @Published var pullProgress: Double = 0
     
-    let offsetTrigger: Double = 70.0
+    let offsetTrigger: Double = 80.0
     var recharged: Bool = true
     
     var refreshAction: RefreshAction? = nil

@@ -32,7 +32,7 @@ public struct RefreshableScrollView<Content: View>: View {
     
     public var body: some View {
         ZStack(alignment: .top) {
-            if configuration.refreshAction != nil {
+            if configuration.refreshAction != nil && configuration.recharged == true {
                 refreshControlStyle.makeBody(configuration: configuration)
                     .padding()
                     .frame(height: configuration.offsetTrigger, alignment: .top)
