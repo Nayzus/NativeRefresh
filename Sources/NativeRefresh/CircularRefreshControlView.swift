@@ -43,7 +43,7 @@ public struct CircularRefreshControlView: View, Equatable {
             .id(id)
             .frame(width: 29, height: 29, alignment: .center)
             .rotationEffect(Angle(degrees: configuration.isRefresh ? 180 : 0), anchor: .center)
-            .rotationEffect(Angle(degrees: rotationEnd ? 320 : 0), anchor: .center)
+            .rotationEffect(Angle(degrees: rotationEnd ? 180 : 0), anchor: .center)
             .animation(.timingCurve(0.3, 0.2, 0.1, 1, duration: 1.5), value: configuration.isRefresh)
             .animation(.timingCurve(0.2, 0.2, 0.1, 0, duration: 0.5), value: rotationEnd)
             .drawingGroup()
