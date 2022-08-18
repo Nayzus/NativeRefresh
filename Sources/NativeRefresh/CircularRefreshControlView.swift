@@ -51,7 +51,7 @@ public struct CircularRefreshControlView: View, Equatable {
                 .font(.system(size: 14, weight: .semibold))
                 .fontWeight(.semibold)
                 .foregroundColor(hintColor ?? .gray)
-                .opacity(configuration.pullProgress / 100)
+                .opacity(configuration.pullProgress / configuration.offsetTrigger)
         
         }
         .scaleEffect(scalingEnd ? 0 : 1)

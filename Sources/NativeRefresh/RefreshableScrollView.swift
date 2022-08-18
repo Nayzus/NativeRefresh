@@ -34,7 +34,8 @@ public struct RefreshableScrollView<Content: View>: View {
         ZStack(alignment: .top) {
             if configuration.refreshAction != nil {
                 refreshControlStyle.makeBody(configuration: configuration)
-                    .frame(height: 100, alignment: .center)
+                    .padding()
+                    .frame(height: configuration.offsetTrigger, alignment: .top)
             }
             ScrollView() {
                 Group {
