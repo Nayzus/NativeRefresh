@@ -33,6 +33,7 @@ public struct CircularRefreshControlView: View, Equatable {
                                 .opacity(self.opacity[idx])
                                 .frame(width: 3.5, height: 10)
                                 .cornerRadius(2)
+                                .animation(.linear(duration: 0.1), value: self.opacity)
                             Spacer()
                         }
                         .rotationEffect(Angle.degrees(Double(idx)/(8) * 360))
