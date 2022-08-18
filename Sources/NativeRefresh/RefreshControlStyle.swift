@@ -36,7 +36,7 @@ public class RefreshControlStyleConfiguration: ObservableObject {
             await offsetChangeAction?(offset.y)
         }
         if !isRefresh {
-            self.recharged = false
+          
             if offset.y < offsetTrigger && offset.y >= 0 {
                 self.pullProgress = (offset.y / offsetTrigger) * 100
             } else if offset.y >= offsetTrigger && recharged == true  {
@@ -55,6 +55,7 @@ public class RefreshControlStyleConfiguration: ObservableObject {
     
     @MainActor
     func startRefreshAction() async {
+        self.recharged = false
         self.isRefresh.toggle()
         if let refreshAction = refreshAction {
             await refreshAction()
