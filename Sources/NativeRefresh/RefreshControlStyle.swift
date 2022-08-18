@@ -36,7 +36,10 @@ public class RefreshControlStyleConfiguration: ObservableObject {
             await offsetChangeAction?(offset.y)
         }
         if !isRefresh {
-          
+            if offset.y == 0 {
+                self.recharged = true
+            }
+            
             if offset.y < offsetTrigger && offset.y >= 0 {
                 self.pullProgress = (offset.y / offsetTrigger) * 100
             } else if offset.y >= offsetTrigger && recharged == true  {
@@ -46,11 +49,7 @@ public class RefreshControlStyleConfiguration: ObservableObject {
                 }
             }
         }
-        else {
-            if offset.y == 0 {
-                self.recharged = true
-            }
-        }
+        
     }
     
     @MainActor
