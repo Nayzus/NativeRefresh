@@ -22,31 +22,41 @@ public class RefreshControlStyleConfiguration: ObservableObject {
     
     @Published var pullProgress: Double = 0
     
-    let offsetTrigger: Double = 100.0
+    let offsetTrigger: Double = 80.0
+    var recharged: Bool = true
+    
     var refreshAction: RefreshAction? = nil
     var endRefreshAction: EndRefreshAction? = nil
     var offsetChangeAction: OffsetChangeAction? = nil
     
     @MainActor
     func updateProgress(_ offset: CGPoint) {
-
+        
         Task {
             await offsetChangeAction?(offset.y)
         }
         if !isRefresh {
-            if offset.y < offsetTrigger && offset.y >= 0 {
-                self.pullProgress = (offset.y / offsetTrigger) * 100
-            } else if offset.y >= offsetTrigger  {
-                self.pullProgress = 100.0
-                Task {
-                    await self.startRefreshAction()
+            if offset.y <= offsetTrigger/10 {
+                self.recharged = true
+            }
+            
+            if self.recharged == true {
+                if offset.y < offsetTrigger && offset.y >= 0 {
+                    self.pullProgress = (offset.y / offsetTrigger) * 100
+                } else if offset.y >= offsetTrigger && recharged == true  {
+                    self.pullProgress = 100.0
+                    Task {
+                        await self.startRefreshAction()
+                    }
                 }
             }
         }
+        
     }
     
     @MainActor
     func startRefreshAction() async {
+        self.recharged = false
         self.isRefresh.toggle()
         if let refreshAction = refreshAction {
             await refreshAction()

@@ -33,6 +33,7 @@ public struct CircularRefreshControlView: View, Equatable {
                                 .opacity(self.opacity[idx])
                                 .frame(width: 3.5, height: 10)
                                 .cornerRadius(2)
+                                .animation(.linear(duration: 0.1), value: self.opacity)
                             Spacer()
                         }
                         .rotationEffect(Angle.degrees(Double(idx)/(8) * 360))
@@ -41,17 +42,17 @@ public struct CircularRefreshControlView: View, Equatable {
             }
             .id(id)
             .frame(width: 29, height: 29, alignment: .center)
-            .drawingGroup()
             .rotationEffect(Angle(degrees: configuration.isRefresh ? 180 : 0), anchor: .center)
-            .rotationEffect(Angle(degrees: rotationEnd ? 320 : 0), anchor: .center)
+            .rotationEffect(Angle(degrees: rotationEnd ? 180 : 0), anchor: .center)
             .animation(.timingCurve(0.3, 0.2, 0.1, 1, duration: 1.5), value: configuration.isRefresh)
             .animation(.timingCurve(0.2, 0.2, 0.1, 0, duration: 0.5), value: rotationEnd)
-        
+            .drawingGroup()
+            
             Text(LocalizedStringKey(hintText ?? ""))
                 .font(.system(size: 14, weight: .semibold))
                 .fontWeight(.semibold)
                 .foregroundColor(hintColor ?? .gray)
-                .opacity(configuration.pullProgress / 100)
+                .opacity(configuration.pullProgress / configuration.offsetTrigger)
         
         }
         .scaleEffect(scalingEnd ? 0 : 1)

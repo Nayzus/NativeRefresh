@@ -34,7 +34,8 @@ public struct RefreshableScrollView<Content: View>: View {
         ZStack(alignment: .top) {
             if configuration.refreshAction != nil {
                 refreshControlStyle.makeBody(configuration: configuration)
-                    .frame(height: 100, alignment: .center)
+                    .padding()
+                    .frame(height: configuration.offsetTrigger, alignment: .top)
             }
             ScrollView() {
                 Group {
@@ -59,7 +60,7 @@ public struct RefreshableScrollView<Content: View>: View {
                             .origin)
                     }
                 )
-                .animation(.spring(), value: dinamicHeight)
+                .animation(configuration.isRefresh == false && configuration.pullProgress == 0  ? .easeOut(duration: 0.3) : .none, value: dinamicHeight)
             }
             .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
             .coordinateSpace(name: "ScrollViewOrigin")
