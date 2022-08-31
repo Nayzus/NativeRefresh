@@ -10,7 +10,7 @@ public struct RefreshableScrollView<Content: View>: View {
     let content: Content
     var refreshControlStyle: RefreshControlStyle
     
-    var dinamicHeight: Double {
+    var dynamicHeight: Double {
 
         if configuration.isRefresh {
             if currentOffset < 100 {
@@ -43,7 +43,7 @@ public struct RefreshableScrollView<Content: View>: View {
                     if #available(iOS 15, *) {
                         VStack(spacing: 0) {
                             Rectangle()
-                                .frame(height: dinamicHeight, alignment: .center)
+                                .frame(height: dynamicHeight, alignment: .center)
                                 .foregroundColor(.clear)
                             
                             content
@@ -51,7 +51,7 @@ public struct RefreshableScrollView<Content: View>: View {
                     }
                     else {
                         content
-                            .offset(x: 0, y: dinamicHeight)
+                            .offset(x: 0, y: dynamicHeight)
                     }
                 }.background(
                     GeometryReader { proxy in
@@ -60,7 +60,7 @@ public struct RefreshableScrollView<Content: View>: View {
                             .origin)
                     }
                 )
-                .animation(configuration.isRefresh == false && configuration.pullProgress == 0  ? .easeOut(duration: 0.3) : .none, value: dinamicHeight)
+                .animation(configuration.isRefresh == false && configuration.pullProgress == 0  ? .easeOut(duration: 0.3) : .none, value: dynamicHeight)
             }
             .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
             .coordinateSpace(name: "ScrollViewOrigin")
