@@ -35,12 +35,19 @@ public struct RefreshableScrollView<Content: View>: View {
         
         if #available(iOS 17, *) {
             
-            ScrollView {
-                content
-            }
-            .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
-            .refreshable {
-                await configuration.refreshAction?()
+            if let refreshAction = configuration.refreshAction {
+                ScrollView {
+                    content
+                }
+                .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
+                .refreshable {
+                    await refreshAction()
+                }
+            } else {
+                ScrollView {
+                    content
+                }
+                .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
             }
         } else {
             ZStack(alignment: .top) {
