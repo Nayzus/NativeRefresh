@@ -37,16 +37,47 @@ public struct RefreshableScrollView<Content: View>: View {
             
             if let refreshAction = configuration.refreshAction {
                 ScrollView {
-                    content
+                    
+                    Group {
+                        content
+                        
+                    }
+                    .background(
+                        GeometryReader { proxy in
+                            Color.clear.preference(key: OffsetPreferenceKey.self,
+                                                   value: proxy.frame(in: .named("ScrollViewOrigin"))
+                                .origin)
+                        }
+                    )
                 }
                 .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
                 .refreshable {
                     await refreshAction()
                 }
+                .coordinateSpace(name: "ScrollViewOrigin")
+                .onPreferenceChange(OffsetPreferenceKey.self, perform: { offset in
+                    self.currentOffset = offset.y
+                    self.configuration.updateProgress(offset)
+                })
             } else {
                 ScrollView {
-                    content
+                    Group {
+                        content
+                        
+                    }
+                    .background(
+                        GeometryReader { proxy in
+                            Color.clear.preference(key: OffsetPreferenceKey.self,
+                                                   value: proxy.frame(in: .named("ScrollViewOrigin"))
+                                .origin)
+                        }
+                    )
                 }
+                .coordinateSpace(name: "ScrollViewOrigin")
+                .onPreferenceChange(OffsetPreferenceKey.self, perform: { offset in
+                    self.currentOffset = offset.y
+                    self.configuration.updateProgress(offset)
+                })
                 .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
             }
         } else {
@@ -216,7 +247,9 @@ final class _OptionalObservedObjectContainer<ObjectType: ObservableObject>: Obse
 
 
 #Preview {
-    RefreshableScrollView(offsetChangeAction: nil) {
+    RefreshableScrollView(offsetChangeAction: {
+        print($0)
+    }) {
         Rectangle()
             .frame(width: 100, height: 100)
     }
