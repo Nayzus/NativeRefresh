@@ -30,44 +30,57 @@ public struct RefreshableScrollView<Content: View>: View {
       
     }
     
+
     public var body: some View {
-        ZStack(alignment: .top) {
-            if configuration.refreshAction != nil {
-                refreshControlStyle.makeBody(configuration: configuration)
-                    .padding()
-                    .frame(height: configuration.offsetTrigger, alignment: .top)
-            }
-            ScrollView() {
-                Group {
-                
-                    if #available(iOS 15, *) {
-                        VStack(spacing: 0) {
-                            Rectangle()
-                                .frame(height: dynamicHeight, alignment: .center)
-                                .foregroundColor(.clear)
-                            
-                            content
-                        }
-                    }
-                    else {
-                        content
-                            .offset(x: 0, y: dynamicHeight)
-                    }
-                }.background(
-                    GeometryReader { proxy in
-                        Color.clear.preference(key: OffsetPreferenceKey.self,
-                                               value: proxy.frame(in: .named("ScrollViewOrigin"))
-                            .origin)
-                    }
-                )
-                .animation(configuration.isRefresh == false && configuration.pullProgress == 0  ? .easeOut(duration: 0.3) : .none, value: dynamicHeight)
+        
+        if #available(iOS 17, *) {
+            
+            ScrollView {
+                content
             }
             .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
-            .coordinateSpace(name: "ScrollViewOrigin")
-            .onPreferenceChange(OffsetPreferenceKey.self, perform: { offset in
-                self.currentOffset = offset.y
-                self.configuration.updateProgress(offset)
-            })
+            .refreshable {
+                await configuration.refreshAction?()
+            }
+        } else {
+            ZStack(alignment: .top) {
+                if configuration.refreshAction != nil {
+                    refreshControlStyle.makeBody(configuration: configuration)
+                        .padding()
+                        .frame(height: configuration.offsetTrigger, alignment: .top)
+                }
+                ScrollView() {
+                    Group {
+                        
+                        if #available(iOS 15, *) {
+                            VStack(spacing: 0) {
+                                Rectangle()
+                                    .frame(height: dynamicHeight, alignment: .center)
+                                    .foregroundColor(.clear)
+                                
+                                content
+                            }
+                        }
+                        else {
+                            content
+                                .offset(x: 0, y: dynamicHeight)
+                        }
+                    }.background(
+                        GeometryReader { proxy in
+                            Color.clear.preference(key: OffsetPreferenceKey.self,
+                                                   value: proxy.frame(in: .named("ScrollViewOrigin"))
+                                .origin)
+                        }
+                    )
+                    .animation(configuration.isRefresh == false && configuration.pullProgress == 0  ? .easeOut(duration: 0.3) : .none, value: dynamicHeight)
+                }
+                .gesture(DragGesture(minimumDistance: disabledScroll ? 0 : 10000))
+                .coordinateSpace(name: "ScrollViewOrigin")
+                .onPreferenceChange(OffsetPreferenceKey.self, perform: { offset in
+                    self.currentOffset = offset.y
+                    self.configuration.updateProgress(offset)
+                })
+            }
         }
     }
     
@@ -191,5 +204,16 @@ final class _OptionalObservedObjectContainer<ObjectType: ObservableObject>: Obse
                     `self`.onObjectWillChange()
                 }
             })
+    }
+}
+
+
+#Preview {
+    RefreshableScrollView(offsetChangeAction: nil) {
+        Rectangle()
+            .frame(width: 100, height: 100)
+    }
+    .onRefresh {
+        try? await Task.sleep(nanoseconds: 2_000_000_000)
     }
 }
